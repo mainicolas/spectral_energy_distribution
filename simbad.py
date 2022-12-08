@@ -13,7 +13,7 @@ class Simbad():
 		self.target				= target
 		self.system_ 			= "Johnson"		#system is fixed
 		self.flux 				= [[],[],[]]
-		self.flux_Jy			= [[],[]]
+		self.flux_Jy			= [[],[],[]]
 		self.coordinates 		= [[],[]]
 
 
@@ -52,11 +52,12 @@ class Simbad():
 				waveband[i] = np.nan
 				self.flux_Jy[0].append(np.ma.masked)
 				self.flux_Jy[1].append(np.ma.masked)
-				self.flux[2][i] = np.ma.masked
+				self.flux_Jy[2].append(np.ma.masked)
 			else:
 				self.flux_Jy[0].append(ihi.to_jsky(ihi.search_vega_filter_py(self.system_, self.flux[0][i])[2], float(self.flux[1][i])))
-				self.flux_Jy[1].append(np.ma.masked)
-		
+				self.flux_Jy[1].append(ihi.to_jsky(ihi.search_vega_filter_py(self.system_, self.flux[0][i])[2], float(self.flux[1][i])+float(self.flux[2][i])))
+				self.flux_Jy[2].append(ihi.to_jsky(ihi.search_vega_filter_py(self.system_, self.flux[0][i])[2], float(self.flux[1][i])-float(self.flux[2][i])))
+
 		waveband_col = Column(data=waveband, name="Waveband", dtype=float, unit="µm")
 		return waveband_col
 
@@ -65,12 +66,21 @@ class Simbad():
 	def simbad_table(self):
 		position 		= self.get_data()
 		waveband_col	= self.waveband()
+		sup, inf = [], []
 
 		while len(self.coordinates[0]) < len(self.flux[0]):
 			self.coordinates[0].append(" ")
 			self.coordinates[1].append(" ")
+		for i in range(len(self.flux_Jy[0])):
+			if np.isnan(self.flux_Jy[0][i]) == False:
+				sup.append(self.flux_Jy[0][i] - self.flux_Jy[1][i])
+				inf.append(self.flux_Jy[2][i] - self.flux_Jy[0][i])
+			else:
+				sup.append(np.ma.masked)
+				inf.append(np.ma.masked)
 
-		simbad = Table([self.coordinates[0], self.coordinates[1], self.flux[0], self.flux_Jy[0], self.flux[2]],names=("Ra", "Dec", "Filter", "Flux", "Flux_error"), units=("deg", "deg", " ", "jansky", "jansky"))
+		simbad = Table([self.coordinates[0], self.coordinates[1], self.flux[0], self.flux_Jy[0], sup, inf],
+				names=("Ra", "Dec", "Filter", "Flux", "Flux error sup", "Flux error inf"), units=("deg", "deg", " ", "jansky", "jansky", "jansky"))
 		simbad.add_column(waveband_col, index=3)
 		print(f"Informations on object: {self.target}")
 		print(simbad)
