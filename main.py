@@ -34,11 +34,17 @@ catalogue = {
 
 
 
-
-
 sim = Simbad(target)
 sim.simbad_table()
 
-viz = Vizier(target, catalogue)
-table = viz.vizier_table()
-viz.plot(table)
+conesearch = str(input(f"\n[do you want to perform a conesearch around {target} and get the sed? (y/n)] ")).upper()
+while True:
+	if conesearch == "Y" or conesearch == "YES" or conesearch == "N" or conesearch == "NO" :
+		break
+	else:			
+		conesearch = str(input(f"[please enter (y/n)] ")).upper()
+
+if conesearch == "Y" or conesearch == "YES":
+		viz = Vizier(target, catalogue)
+		table = viz.vizier_table()
+		viz.plot(table)

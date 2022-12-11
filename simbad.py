@@ -10,11 +10,11 @@ from astropy.coordinates import SkyCoord
 
 class Simbad():
 	def __init__(self, target:str) -> None:
-		self.target				= target
-		self.system_ 			= "Johnson"		#system is fixed
-		self.flux 				= [[],[],[]]
-		self.flux_Jy			= [[],[],[]]
-		self.coordinates 		= [[],[]]
+		self.target			= target
+		self.system_ 		= "Johnson"	
+		self.flux 			= [[],[],[]]
+		self.flux_Jy		= [[],[],[]]
+		self.coordinates 	= [[],[]]
 
 
 	def get_data(self):
@@ -80,7 +80,7 @@ class Simbad():
 				inf.append(np.ma.masked)
 
 		simbad = Table([self.coordinates[0], self.coordinates[1], self.flux[0], self.flux_Jy[0], sup, inf],
-				names=("Ra", "Dec", "Filter", "Flux", "Flux error sup", "Flux error inf"), units=("deg", "deg", " ", "jansky", "jansky", "jansky"))
+				names=("Ra", "Dec", "Filter", "Flux", "Flux_err+", "Flux_err-"), units=("deg", "deg", " ", "jansky", "jansky", "jansky"))
 		simbad.add_column(waveband_col, index=3)
 		print(f"Informations on object: {self.target}")
 		print(simbad)
