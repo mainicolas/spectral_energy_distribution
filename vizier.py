@@ -18,6 +18,7 @@ class Vizier(Simbad):
 	def conesearch_radius(self):
 		#print("\n")
 		self.radius = int(input("\n[enter the requested radius for the conesearch (arcmin)] "))
+		print("\n ")
 
 	def catalogue_request(self):
 		for i in range(len(self.catalogue)):

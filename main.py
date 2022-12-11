@@ -2,8 +2,16 @@ from simbad import Simbad
 from vizier import Vizier
 
 
+targets = ["HD1", "HD225002", "TYC2275-512-1", "TYC4018-3553-1", "TYC4018-3553-1", "other"]
 
-target = 'TYC4018-3553-1'#str(input("Target name: "))
+for i in range(len(targets)):
+	print(f"-> [{i}] {targets[i]}")
+nb = int(input("\n[choose a target] "))
+
+target = targets[nb]
+if target == "other":
+	target = input("[enter a target name] ")
+
 
 
 apogee_system_filter = {
@@ -32,12 +40,10 @@ catalogue = {
 }
 
 
-
-
 sim = Simbad(target)
 sim.simbad_table()
 
-conesearch = str(input(f"\n[do you want to perform a conesearch around {target} and get the sed? (y/n)] ")).upper()
+conesearch = str(input(f"\n\n[do you want to perform a conesearch around {target} and get the sed? (y/n)] ")).upper()
 while True:
 	if conesearch == "Y" or conesearch == "YES" or conesearch == "N" or conesearch == "NO" :
 		break

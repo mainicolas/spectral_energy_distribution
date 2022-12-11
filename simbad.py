@@ -28,12 +28,12 @@ class Simbad():
 
 				if "Flux" in line.decode("UTF-8"):
 					if len(line.decode('UTF-8').split()) > 2:
-						self.flux[0].append(line.decode("UTF-8").split()[1]) # Filter
-						self.flux[1].append(line.decode("UTF-8").split()[3]) # Flux value
+						self.flux[0].append(line.decode("UTF-8").split()[1]) 
+						self.flux[1].append(line.decode("UTF-8").split()[3])
 						if line.decode('UTF-8').split()[4] != '[~]':
-							self.flux[2].append(line.decode("UTF-8").split()[4][1:-1]) # Error on flux
+							self.flux[2].append(line.decode("UTF-8").split()[4][1:-1]) 
 						else:
-							self.flux[2].append(np.ma.masked) # If no error on flux
+							self.flux[2].append(np.ma.masked) 
 					else:
 						self.flux[0].append(np.ma.masked)
 						self.flux[1].append(np.ma.masked)
@@ -82,5 +82,5 @@ class Simbad():
 		simbad = Table([self.coordinates[0], self.coordinates[1], self.flux[0], self.flux_Jy[0], sup, inf],
 				names=("Ra", "Dec", "Filter", "Flux", "Flux_err+", "Flux_err-"), units=("deg", "deg", " ", "jansky", "jansky", "jansky"))
 		simbad.add_column(waveband_col, index=3)
-		print(f"Informations on object: {self.target}")
+		print(f"\nSimbad informations on object: {self.target}")
 		print(simbad)
