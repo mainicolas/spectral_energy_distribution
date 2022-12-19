@@ -91,25 +91,25 @@ class Vizier(Simbad):
 			if self.column_choice[i] == "_3.6mag" or self.column_choice[i] == "_4.5mag" or self.column_choice[i] == "_5.8mag" or self.column_choice[i] == "_8.0mag" or self.column_choice[i] == "_4.5magW":
 				column = self.column_choice[i].replace("_","")
 				for j in a[0]:
-					table["e_" + column][j]				= ihi.to_jsky(ihi.search_vega_filter_py(list(self.catalogue[self.catalogue_choice][column].values())[0],
+					table["e_" + column][j]				= astrom.to_jsky(astrom.search_vega_filter_py(list(self.catalogue[self.catalogue_choice][column].values())[0],
 							list(self.catalogue[self.catalogue_choice][column].values())[1])[2],table["e_" + column][j]+table[self.column_choice[i]][j])
-					table[self.column_choice[i]][j]		= ihi.to_jsky(ihi.search_vega_filter_py(list(self.catalogue[self.catalogue_choice][column].values())[0],
+					table[self.column_choice[i]][j]		= astrom.to_jsky(astrom.search_vega_filter_py(list(self.catalogue[self.catalogue_choice][column].values())[0],
 							list(self.catalogue[self.catalogue_choice][column].values())[1])[2],table[self.column_choice[i]][j])
 					table["e_" + column][j] = table[self.column_choice[i]][j] - table["e_" + column][j]
 			else:
 				column = self.column_choice[i]
 				for j in a[0]:
-					table["e_"+self.column_choice[i]][j]	= ihi.to_jsky(ihi.search_vega_filter_py(list(self.catalogue[self.catalogue_choice][self.column_choice[i]].values())[0],
+					table["e_"+self.column_choice[i]][j]	= astrom.to_jsky(astrom.search_vega_filter_py(list(self.catalogue[self.catalogue_choice][self.column_choice[i]].values())[0],
 							list(self.catalogue[self.catalogue_choice][self.column_choice[i]].values())[1])[2], table["e_"+self.column_choice[i]][j]+table[self.column_choice[i]][j])	
-					table[self.column_choice[i]][j]		= ihi.to_jsky(ihi.search_vega_filter_py(list(self.catalogue[self.catalogue_choice][self.column_choice[i]].values())[0],
+					table[self.column_choice[i]][j]		= astrom.to_jsky(astrom.search_vega_filter_py(list(self.catalogue[self.catalogue_choice][self.column_choice[i]].values())[0],
 							list(self.catalogue[self.catalogue_choice][self.column_choice[i]].values())[1])[2],table[self.column_choice[i]][j])
 					table["e_"+self.column_choice[i]][j] = table[self.column_choice[i]][j] - table["e_"+self.column_choice[i]][j]
 							
 
 			self.requested_table.append(table[self.column_choice[i]])
 			
-			self.sed[0][i].append(ihi.search_vega_filter_py(list(self.catalogue[self.catalogue_choice][column].values())[0],list(self.catalogue[self.catalogue_choice][column].values())[1])[0])
-			self.sed[1][i].append(ihi.search_vega_filter_py(list(self.catalogue[self.catalogue_choice][column].values())[0],list(self.catalogue[self.catalogue_choice][column].values())[1])[1])
+			self.sed[0][i].append(astrom.search_vega_filter_py(list(self.catalogue[self.catalogue_choice][column].values())[0],list(self.catalogue[self.catalogue_choice][column].values())[1])[0])
+			self.sed[1][i].append(astrom.search_vega_filter_py(list(self.catalogue[self.catalogue_choice][column].values())[0],list(self.catalogue[self.catalogue_choice][column].values())[1])[1])
 			self.requested_table.append(table["e_"+column])
 
 
@@ -132,12 +132,13 @@ class Vizier(Simbad):
 		plt.figure(figsize=(17,8))
 		plt.subplot(121)
 		plt.scatter(raa, table.columns[1], c="orange")
-		plt.scatter(ra,dec,c="dodgerblue")
+		plt.scatter(ra,dec,c="dodgerblue", label=f"{self.target}")
 
 		plt.title("Coordinates plot of nearby objects", fontsize=17, fontname="Serif")
 		plt.xlabel("Right ascension (deg)", fontsize=12, fontname="Serif")
 		plt.ylabel("Declination (deg)", fontsize=12, fontname="Serif")
 		plt.grid(ls=':')
+		plt.legend()
 
 
 

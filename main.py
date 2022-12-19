@@ -2,7 +2,7 @@ from simbad import Simbad
 from vizier import Vizier
 
 
-targets = ["HD1", "HD225002", "TYC2275-512-1", "TYC4018-3553-1", "TYC4018-3553-1", "other"]
+targets = ["HD1", "HD225002", "TYC4619-98-1", "TYC2275-512-1", "TYC4018-3553-1", "other"]
 
 for i in range(len(targets)):
 	print(f"-> [{i}] {targets[i]}")

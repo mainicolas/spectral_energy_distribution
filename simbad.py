@@ -1,11 +1,10 @@
 from astropy.table import Table, Column
 import urllib.request as http
-import interface as ihi
+import astrom2 as astrom
 import numpy as np
 
 from astropy import units as u
 from astropy.coordinates import SkyCoord
-
 
 
 class Simbad():
@@ -47,16 +46,16 @@ class Simbad():
 		waveband 	= []
 
 		for i in range(len(self.flux[0])):
-			waveband.append(ihi.search_vega_filter_py(self.system_, self.flux[0][i])[0])
+			waveband.append(astrom.search_vega_filter_py(self.system_, self.flux[0][i])[0])
 			if waveband[i] < 1e-15:
 				waveband[i] = np.nan
 				self.flux_Jy[0].append(np.ma.masked)
 				self.flux_Jy[1].append(np.ma.masked)
 				self.flux_Jy[2].append(np.ma.masked)
 			else:
-				self.flux_Jy[0].append(ihi.to_jsky(ihi.search_vega_filter_py(self.system_, self.flux[0][i])[2], float(self.flux[1][i])))
-				self.flux_Jy[1].append(ihi.to_jsky(ihi.search_vega_filter_py(self.system_, self.flux[0][i])[2], float(self.flux[1][i])+float(self.flux[2][i])))
-				self.flux_Jy[2].append(ihi.to_jsky(ihi.search_vega_filter_py(self.system_, self.flux[0][i])[2], float(self.flux[1][i])-float(self.flux[2][i])))
+				self.flux_Jy[0].append(astrom.to_jsky(astrom.search_vega_filter_py(self.system_, self.flux[0][i])[2], float(self.flux[1][i])))
+				self.flux_Jy[1].append(astrom.to_jsky(astrom.search_vega_filter_py(self.system_, self.flux[0][i])[2], float(self.flux[1][i])+float(self.flux[2][i])))
+				self.flux_Jy[2].append(astrom.to_jsky(astrom.search_vega_filter_py(self.system_, self.flux[0][i])[2], float(self.flux[1][i])-float(self.flux[2][i])))
 
 		waveband_col = Column(data=waveband, name="Waveband", dtype=float, unit="µm")
 		return waveband_col
