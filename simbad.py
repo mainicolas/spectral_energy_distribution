@@ -9,15 +9,15 @@ from astropy.coordinates import SkyCoord
 
 class Simbad():
 	def __init__(self, target:str) -> None:
-		self.target			= target
-		self.system_ 		= "Johnson"	
-		self.flux 			= [[],[],[]]
-		self.flux_Jy		= [[],[],[]]
-		self.coordinates 	= [[],[]]
+		self.target	 = target
+		self.system_	 = "Johnson"	
+		self.flux	 = [[],[],[]]
+		self.flux_Jy	 = [[],[],[]]
+		self.coordinates = [[],[]]
 
 
 	def get_data(self):
-		simbad_url	= f"https://simbad.u-strasbg.fr/simbad/sim-id?output.format=ASCII&output.console=off&output.script=off&Ident={self.target}"
+		simbad_url = f"https://simbad.u-strasbg.fr/simbad/sim-id?output.format=ASCII&output.console=off&output.script=off&Ident={self.target}"
 
 		with http.urlopen(simbad_url) as fd:
 			for line in fd:
@@ -63,9 +63,9 @@ class Simbad():
 		
 
 	def simbad_table(self):
-		position 		= self.get_data()
+		position 	= self.get_data()
 		waveband_col	= self.waveband()
-		sup, inf = [], []
+		sup, inf 	= [], []
 
 		while len(self.coordinates[0]) < len(self.flux[0]):
 			self.coordinates[0].append(" ")
