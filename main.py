@@ -24,10 +24,10 @@ apogee_system_filter = {
 	"Ksmag"		: {"system": "2MASS",		"filter": "Ks"},
 	"Mmag"		: {"system": "Washington",	"filter": "M"},
 	"T2mag"		: {"system": "Washington",	"filter": "T2"},
-	"3.6mag"	: {"system": "Spitzer/IRAC","filter": "3.6"},
-	"4.5mag"	: {"system": "Spitzer/IRAC","filter": "4.5"},
-	"5.8mag"	: {"system": "Spitzer/IRAC","filter": "5.8"},
-	"8.0mag"	: {"system": "Spitzer/IRAC","filter": "8.0"},
+	"3.6mag"	: {"system": "Spitzer/IRAC",	"filter": "3.6"},
+	"4.5mag"	: {"system": "Spitzer/IRAC",	"filter": "4.5"},
+	"5.8mag"	: {"system": "Spitzer/IRAC",	"filter": "5.8"},
+	"8.0mag"	: {"system": "Spitzer/IRAC",	"filter": "8.0"},
 	"4.5magW"	: {"system": "WISE",		"filter": "W2"}
 }
 xmm_system_filter = {
