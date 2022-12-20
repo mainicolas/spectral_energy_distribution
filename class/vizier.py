@@ -6,14 +6,14 @@ class Vizier(Simbad):
 	def __init__(self, target:str, catalogue:dict) -> None:
 		super().__init__(target)
 		self.requested_table	= []
-		self.column_choice		= []
-		self.sed				= [[],[]]
-		self.apogee_coord		= ["RAJ2000", "DEJ2000"]
-		self.xmm_coord			= ["RAICRS", "DEICRS"]
-		self.catalogue			= catalogue
+		self.column_choice	= []
+		self.sed		= [[],[]]
+		self.apogee_coord	= ["RAJ2000", "DEJ2000"]
+		self.xmm_coord		= ["RAICRS", "DEICRS"]
+		self.catalogue		= catalogue
 		self.catalogue_choice	= None
-		self.table_name			= None
-		self.radius				= None
+		self.table_name		= None
+		self.radius		= None
 
 	def conesearch_radius(self):
 		'''
@@ -167,8 +167,8 @@ class Vizier(Simbad):
 
 		plt.subplot(122)
 		for i in range(len(self.sed[0])):
-			new = []
-			new_er = []
+			new	= []
+			new_er 	= []
 			
 			a = np.where(table[self.column_choice[i]].mask == False)
 			for j in a[0]:
