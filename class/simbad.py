@@ -10,9 +10,9 @@ from astropy.coordinates import SkyCoord
 
 class Simbad():
 	def __init__(self, target:str) -> None:
-		self.target			= target
+		self.target		= target
 		self.system_ 		= "Johnson"	
-		self.flux 			= [[],[],[]]
+		self.flux 		= [[],[],[]]
 		self.flux_Jy		= [[],[],[]]
 		self.coordinates 	= [[],[]]
 
@@ -87,7 +87,7 @@ class Simbad():
 		'''
 		self.get_data()
 		waveband_col	= self.waveband()
-		sup, inf 		= [], []
+		sup, inf 	= [], []
 
 		while len(self.coordinates[0]) < len(self.flux[0]):
 			self.coordinates[0].append(" ")
