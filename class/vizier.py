@@ -36,9 +36,9 @@ class Vizier(Simbad):
 				self.catalogue_choice = str(input("[please enter a valid name] ")).upper()
 
 		if self.catalogue_choice == "APOGEE":
-			self.name="III/284/allstars"
+			self.name ="III/284/allstars"
 		else:
-			self.name="II/340/xmmom2_1"
+			self.name ="II/340/xmmom2_1"
 
 
 	def column_request(self):
@@ -111,9 +111,9 @@ class Vizier(Simbad):
 			if self.column_choice[i] == "_3.6mag" or self.column_choice[i] == "_4.5mag" or self.column_choice[i] == "_5.8mag" or self.column_choice[i] == "_8.0mag" or self.column_choice[i] == "_4.5magW":
 				column = self.column_choice[i].replace("_","")
 				for j in a[0]:
-					table["e_" + column][j]				= astrom.to_jsky(astrom.search_vega_filter_py(list(self.catalogue[self.catalogue_choice][column].values())[0],
+					table["e_" + column][j]		= astrom.to_jsky(astrom.search_vega_filter_py(list(self.catalogue[self.catalogue_choice][column].values())[0],
 							list(self.catalogue[self.catalogue_choice][column].values())[1])[2],table["e_" + column][j]+table[self.column_choice[i]][j])
-					table[self.column_choice[i]][j]		= astrom.to_jsky(astrom.search_vega_filter_py(list(self.catalogue[self.catalogue_choice][column].values())[0],
+					table[self.column_choice[i]][j]	= astrom.to_jsky(astrom.search_vega_filter_py(list(self.catalogue[self.catalogue_choice][column].values())[0],
 							list(self.catalogue[self.catalogue_choice][column].values())[1])[2],table[self.column_choice[i]][j])
 					table["e_" + column][j] = table[self.column_choice[i]][j] - table["e_" + column][j]
 			else:
@@ -121,7 +121,7 @@ class Vizier(Simbad):
 				for j in a[0]:
 					table["e_"+self.column_choice[i]][j]	= astrom.to_jsky(astrom.search_vega_filter_py(list(self.catalogue[self.catalogue_choice][self.column_choice[i]].values())[0],
 							list(self.catalogue[self.catalogue_choice][self.column_choice[i]].values())[1])[2], table["e_"+self.column_choice[i]][j]+table[self.column_choice[i]][j])	
-					table[self.column_choice[i]][j]			= astrom.to_jsky(astrom.search_vega_filter_py(list(self.catalogue[self.catalogue_choice][self.column_choice[i]].values())[0],
+					table[self.column_choice[i]][j]		= astrom.to_jsky(astrom.search_vega_filter_py(list(self.catalogue[self.catalogue_choice][self.column_choice[i]].values())[0],
 							list(self.catalogue[self.catalogue_choice][self.column_choice[i]].values())[1])[2],table[self.column_choice[i]][j])
 					table["e_"+self.column_choice[i]][j] 	= table[self.column_choice[i]][j] - table["e_"+self.column_choice[i]][j]
 							
@@ -144,8 +144,8 @@ class Vizier(Simbad):
 		plot the sed
 		'''
 		self.get_data()
-		ra, dec = self.coordinates[0], self.coordinates[1]
-		ra_correction = []
+		ra, dec 	= self.coordinates[0], self.coordinates[1]
+		ra_correction	= []
 		
 		for i in range(len(table.columns[0])):
 			if np.max(table.columns[0]) > 340 and np.min(table.columns[0]) < 20 and table.columns[0][i] > 180:
@@ -174,8 +174,8 @@ class Vizier(Simbad):
 			for j in a[0]:
 				new.append(table[self.column_choice[i]][j])
 			if len(new) != 0:
-				l = np.ones(len(new))*self.sed[0][i]
-				x_er = np.ones(len(new))*self.sed[1][i]
+				l 	= np.ones(len(new))*self.sed[0][i]
+				x_er 	= np.ones(len(new))*self.sed[1][i]
 
 				if self.column_choice[i] == "_3.6mag" or self.column_choice[i] == "_4.5mag" or self.column_choice[i] == "_5.8mag" or self.column_choice[i] == "_8.0mag" or self.column_choice[i] == "_4.5magW":
 					self.column_choice[i] = self.column_choice[i].replace("_","")
